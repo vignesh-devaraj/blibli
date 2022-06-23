@@ -1,0 +1,24 @@
+@import url("common/styles/product.style.less");
+
+.blibli-search {
+  min-height: 600px;
+  padding: 10px;
+  header {
+    min-height: 60px;
+    position: sticky;
+  }
+  .result__text {
+    padding-left: 10px;
+    span {
+      padding-left: 5px;
+    }
+    span a {
+      text-decoration: none;
+      color: @primary-color;
+    }
+  }
+  main {
+    max-height: 625px;
+    overflow-y: scroll;
+  }
+}

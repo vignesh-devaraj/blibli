@@ -1,0 +1,71 @@
+@import url("../../common/styles/product.style.less");
+
+.navbar__header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+
+  .header__search, .header__icons {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .icons__shopping {
+    display: flex;
+  }
+
+  .shop__count {
+    position: relative;
+    right: 10px;
+    bottom: 10px;
+    width: 20px;
+    height: 20px;
+    color: white;
+    background-color: @cart-count-bg;
+    border-radius: 50%;
+    text-align: center;
+  }
+
+  .search {
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: @input-bg;
+    border: 2px solid @input-bg;
+    border-radius: 10px;
+    &__input {
+      width: 220px;
+      height: 24px;
+      padding-left: 10px;
+      border: none;
+      background-color: @input-bg;
+      outline-style: none;
+    }
+  }
+}
+
+
+@media screen and (max-width:500px) {
+  .navbar__header {
+    flex-direction: column;
+    row-gap: 10px;
+    .header__search, .header__icons {
+      gap: 10px;
+    }
+    .icon {
+      width: 20px;
+      height: 20px;
+    }
+    .search {
+      flex-wrap: wrap;
+      .search__input {
+        width: 50%;
+      }
+    }
+
+  }
+}

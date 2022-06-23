@@ -1,0 +1,17 @@
+<section class="navbar__header">
+  <section class="header__search">
+    <div class="icon-arrow"></div>
+    <form class="search" [formGroup]="searchForm" (ngSubmit)="searchData()">
+      <div class="icon-search" id="searchIcon" (click)="searchData()"></div>
+      <input type="text" class="search__input" formControlName="searchInput">
+      <div class="icon-close" id="closeIcon" (click)="resetForm()"></div>
+    </form>
+  </section>
+  <section class="header__icons">
+    <div class="icons__shopping">
+      <div class="icon-shopping"></div>
+      <div class="shop__count">0</div>
+    </div>
+    <div class="icon-home"></div>
+  </section>
+</section>

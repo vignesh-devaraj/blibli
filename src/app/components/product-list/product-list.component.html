@@ -1,0 +1,37 @@
+<section class="products">
+  <section class="products__data" *ngFor="let product of productDetails?.data?.products">
+    <div class="card container">
+      <span class="container__text">Paling top</span>
+      <img class="card-img-top container__img" src="{{product.images[0]}}" alt="Title">
+      <div class="product">
+        <div class="product__name">{{product.name}}</div>
+        <div class="product__price">{{product.price?.priceDisplay}}</div>
+        <div class="product__discount" *ngIf="product.price?.strikeThroughPriceDisplay">
+          <span class="discount__price">{{product.price?.strikeThroughPriceDisplay}}</span>
+          <span class="discount__percentage">{{product.price?.discount}}</span>
+        </div>
+        <div class="product__location">
+          <ng-container *ngIf="product.badge?.merchantBadgeUrl">
+            <img class="location__badge" src="{{product.badge?.merchantBadgeUrl}}" alt="">
+          </ng-container>
+          <span class="location__name" *ngIf="product.location">{{product.location}}</span>
+        </div>
+        <div class="product__review">
+          <img class="review__img" src="../../../assets/images/icons/star-fill.svg">
+          <span class="review__rating">{{product.review?.rating}}</span>
+          <span class="review__count">({{product.review?.count}})</span>
+          <div class="review__bar"></div>
+          <div class="review__sold">Terjual</div>
+        </div>
+        <div class="product__shipper">
+          <img class="shipper__img" src="https://www.static-src.com/frontend/catalog/static/img/blibli-shipping.a82f159.svg" alt="">
+        </div>
+        <!-- <button class="product__add">Lihat Detail</button> -->
+      </div>
+      <button class="container__add">Lihat Detail</button>
+    </div>
+  </section>
+</section>
+
+
+
