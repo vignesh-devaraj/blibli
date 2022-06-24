@@ -1,29 +1,54 @@
-import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ProductService } from './../../common/service/product.service';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.less']
+  styleUrls: ['./navbar.component.less'],
 })
-export class NavbarComponent implements OnInit {
-
-  constructor(private formBuilder: FormBuilder) { }
-
+export class NavbarComponent implements OnInit, OnDestroy {
+  @Output() searchInputEmitter: EventEmitter<any> = new EventEmitter<any>();
+  @Output() modalEmitter: EventEmitter<any> = new EventEmitter<any>();
   searchForm = this.formBuilder.group({
-    searchInput: ""
+    searchInput: '',
   });
+  shopCartCount = 0;
+  selectedProductObs!: Subscription;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private productService: ProductService
+  ) {}
 
   ngOnInit(): void {
+    this.selectedProductObs = this.productService.selectedProductObs.subscribe(
+      (count) => (this.shopCartCount = count)
+    );
   }
 
-  searchData() {
-    console.log(this.searchForm.value);
-
+  searchData(): void {
+    if (this.searchForm.value.searchInput !== '') {
+      this.searchInputEmitter.emit(this.searchForm.value);
+    }
   }
 
-  resetForm() {
+  resetForm(): void {
     this.searchForm.reset();
   }
 
+  openModal(): void {
+    this.modalEmitter.emit();
+  }
+
+  ngOnDestroy(): void {
+    this.selectedProductObs.unsubscribe();
+  }
 }

@@ -8,9 +8,9 @@
     </form>
   </section>
   <section class="header__icons">
-    <div class="icons__shopping">
+    <div class="icons__shopping" (click)="openModal()">
       <div class="icon-shopping"></div>
-      <div class="shop__count">0</div>
+      <div class="shop__count">{{shopCartCount}}</div>
     </div>
     <div class="icon-home"></div>
   </section>

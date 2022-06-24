@@ -1,37 +1,69 @@
-import { I, IProductDetails } from './common/interface/product.interface';
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { ProductMockUpData } from './common/mockup-data/product.mockup.data';
+import { ProductService } from './common/service/product.service';
+import {
+  IProductDetails,
+  ISearchQuery,
+  IProducts,
+} from './common/interface/product.interface';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
+  @ViewChild('modalBtn') modalButton!: ElementRef<HTMLButtonElement>;
   productDetails!: IProductDetails;
+  clonedProductDetails!: IProductDetails;
+  searchQuery!: ISearchQuery;
+  start = 0;
+  isLoading = false;
+  isInitialLoad = true;
+  cartProducts: IProducts[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private productService: ProductService) {}
 
-  ngOnInit() {
-    this.http
-      .get<IProductDetails>(
-        'https://www.blibli.com/backend/search/products?searchTerm=samsung&start=0&itemPerPage=24'
-      ).subscribe(
-        (result: IProductDetails) => {
-          this.productDetails = result;
+  searchProducts(searchForm: any): void {
+    this.isInitialLoad = false;
+    if (searchForm.searchInput) {
+      this.searchQuery = {
+        searchTerm: searchForm.searchInput,
+        start: this.start,
+      };
+      this.getProductDetails();
+    }
+  }
+
+  getProductDetails(): void {
+    this.isLoading = true;
+    this.productService.searchProducts(this.searchQuery).subscribe({
+      next: (response: IProductDetails) => {
+        this.isLoading = false;
+        this.productDetails = response;
+        if (this.productDetails.data?.paging) {
+          this.productDetails.data.paging.page = this.searchQuery.start + 1;
         }
-      );
-    // this.http
-    // .get<any>(
-    //   '/backend/search/products?searchTerm=samsung&start=0&itemPerPage=24'
-    // )
-    // .subscribe(d => console.log(d)
-    // );
-    // this.http
-    //   .get(
-    //     '/aliens'
-    //   )
-    //   .subscribe(d => console.log(d)
-    //   );
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.productDetails = err;
+      },
+    });
+    // this.productDetails = ProductMockUpData.ProductResponse;
+  }
+
+  navigateToPage(pageNo: any): void {
+    this.searchQuery.start = pageNo - 1;
+    this.getProductDetails();
+  }
+
+  openModal(): void {
+    this.modalButton.nativeElement.click();
+    this.cartProducts = this.productService.cartProducts;
+  }
+
+  deleteProduct(index: number): void {
+    this.productService.removeProductFromCart(index);
   }
 }

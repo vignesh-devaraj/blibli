@@ -1,10 +1,10 @@
 <section class="products">
-  <section class="products__data" *ngFor="let product of productDetails?.data?.products">
+  <section class="products__data" *ngFor="let product of productDetails?.data?.products; let index = index">
     <div class="card container">
-      <span class="container__text">Paling top</span>
+      <span class="container__text" *ngIf="index < 6">Paling top</span>
       <img class="card-img-top container__img" src="{{product.images[0]}}" alt="Title">
       <div class="product">
-        <div class="product__name">{{product.name}}</div>
+        <div class="product__name" title="{{product.name}}">{{product.name}}</div>
         <div class="product__price">{{product.price?.priceDisplay}}</div>
         <div class="product__discount" *ngIf="product.price?.strikeThroughPriceDisplay">
           <span class="discount__price">{{product.price?.strikeThroughPriceDisplay}}</span>
@@ -23,12 +23,8 @@
           <div class="review__bar"></div>
           <div class="review__sold">Terjual</div>
         </div>
-        <div class="product__shipper">
-          <img class="shipper__img" src="https://www.static-src.com/frontend/catalog/static/img/blibli-shipping.a82f159.svg" alt="">
-        </div>
-        <!-- <button class="product__add">Lihat Detail</button> -->
       </div>
-      <button class="container__add">Lihat Detail</button>
+      <button class="container__add" (click)="addToCart(product)">Tambah ke Bag</button>
     </div>
   </section>
 </section>

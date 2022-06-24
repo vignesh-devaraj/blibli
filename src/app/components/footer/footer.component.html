@@ -1,0 +1,20 @@
+ <nav aria-label="Page navigation example" *ngIf="pagingData">
+  <ul class="pagination product__pagination">
+    <li class="page-item disabled" [ngClass]="{'disabled': currentPage <= 1}" (click)="navigatePage(1)">
+      <a class="page-link" href="#">First</a>
+    </li>
+    <li class="page-item disabled" [ngClass]="{'disabled': currentPage <= 1}" (click)="navigatePage(currentPage-1)">
+      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+    </li>
+    <li class="page-item" *ngFor="let item of footerPageArray" [ngClass]="{'active': currentPage === item}"  (click)="navigatePage(item)">
+      <a class="page-link" href="#">{{item}}</a>
+    </li>
+    <li class="page-item" [ngClass]="{'disabled': currentPage >= totalPage}" (click)="navigatePage(currentPage + 1)">
+      <a class="page-link" href="#">Next</a>
+    </li>
+    <li class="page-item disabled" [ngClass]="{'disabled': currentPage >= totalPage}" (click)="navigatePage(totalPage)">
+      <a class="page-link" href="#">Last</a>
+    </li>
+  </ul>
+</nav>
+

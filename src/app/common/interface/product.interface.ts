@@ -5,7 +5,7 @@ export interface IProductDetails {
 }
 
 export interface IData {
-  pagetype: [];
+  pageType: [];
   searchTerm: string;
   suggestions: [];
   correctedSearchResponses: [];
@@ -80,7 +80,7 @@ export interface IProducts {
   level0Id: string;
   uniqueSellingPoint: string;
   isCheap: boolean;
-  soldRangeCount: ISoldRangeCount;
+  soldRangeCount?: ISoldRangeCount;
   official: boolean;
   preorder: boolean;
 }
@@ -90,7 +90,7 @@ export interface IPrice {
   strikeThroughPriceDisplay?: string;
   discount: number;
   minPrice: number;
-  offerPriceDisplay: string;
+  offerPriceDisplay?: string;
 }
 
 export interface IRootCategory {
@@ -105,8 +105,8 @@ export interface IReview {
 }
 
 export interface IAttributes {
-  optionListingType: string;
-  values: string[];
+  optionListingType?: string;
+  values?: string[];
   count: number;
 }
 
@@ -171,12 +171,21 @@ export interface IFilters {
 export interface IFiltersData {
   label: string;
   value: string;
+  indexName?: string;
   selected: boolean;
+  disabled?: boolean;
+  id?: string;
+  level?: number;
+  subCategory?: [];
+  subCategorySelected?: boolean;
+  restrictedCategory?: boolean;
   query?: string;
   promoBatchUrl?: string;
   tooltip?: string;
   tooltipUrl?: string;
   tooltipText?: string;
+  code?: string;
+  parameter?: string;
   popular: boolean;
 }
 
@@ -218,10 +227,7 @@ export interface ISponsorProducts {
   uclid: string;
 }
 
-export interface I {
-
-}
-
-export interface I {
-
+export interface ISearchQuery {
+  searchTerm: string;
+  start:number;
 }

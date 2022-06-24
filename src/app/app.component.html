@@ -1,12 +1,69 @@
 <div class="blibli-search">
   <header>
-    <app-navbar></app-navbar>
+    <app-navbar (searchInputEmitter)="searchProducts($event)" (modalEmitter)="openModal()">
+    </app-navbar>
   </header>
   <section class="result__text">
-    <span>{{"resultText" | translate}}</span>
-    <span><a href="#">{{"allCategories" | translate}}</a></span>
+    <span>{{ "resultText" | translate }}</span>
+    <span>
+      <a href="#" class="link">{{ "allCategories" | translate }}</a>
+    </span>
   </section>
-  <main>
-    <app-product-list [productDetails]="productDetails"></app-product-list>
+  <main class="search__text" *ngIf="isInitialLoad">
+    <h2 *ngIf="isInitialLoad && !isLoading">Search something to get products</h2>
   </main>
+  <main class="search__text" *ngIf="isLoading">
+    <div class="loader" *ngIf="isLoading"></div>
+  </main>
+  <main class="search__text" *ngIf="productDetails?.status !== 'OK' && !isInitialLoad">
+    <h2>No products available</h2>
+  </main>
+  <main *ngIf="productDetails?.status === 'OK' && !isLoading">
+    <app-product-list *ngIf="productDetails" [productDetails]="productDetails">
+    </app-product-list>
+  </main>
+  <footer>
+    <app-footer
+      [pagingData]="productDetails?.data?.paging"
+      (pageNoEmitter)="navigateToPage($event)"
+    ></app-footer>
+  </footer>
+</div>
+
+<button #modalBtn type="button" [hidden]="true" class="btn btn-primary"
+  data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Open Modal
+</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Shopping Cart</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="product__list" *ngFor="let cart of cartProducts; let index = index"        >
+          <div class="list">
+            <div class="list__img">
+              <img class="img__size" src="{{ cart.images[0] }}" alt="" />
+            </div>
+            <div class="list__detail">
+              <div class="detail__name">
+                {{ cart.name }}
+              </div>
+              <div class="detail__price">
+                {{ cart.price.priceDisplay }}
+              </div>
+            </div>
+            <div class="list__delete">
+              <button class="btn-primary" (click)="deleteProduct(index)">
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
