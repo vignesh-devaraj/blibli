@@ -1,4 +1,3 @@
-import { ProductMockUpData } from './common/mockup-data/product.mockup.data';
 import { ProductService } from './common/service/product.service';
 import {
   IProductDetails,
@@ -50,7 +49,6 @@ export class AppComponent {
         this.productDetails = err;
       },
     });
-    // this.productDetails = ProductMockUpData.ProductResponse;
   }
 
   navigateToPage(pageNo: any): void {

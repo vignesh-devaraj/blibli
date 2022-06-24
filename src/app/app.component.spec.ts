@@ -1,4 +1,4 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ProductService } from './common/service/product.service';
