@@ -15,13 +15,14 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./navbar.component.less'],
 })
 export class NavbarComponent implements OnInit, OnDestroy {
+
   @Output() searchInputEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output() modalEmitter: EventEmitter<any> = new EventEmitter<any>();
-  searchForm = this.formBuilder.group({
+  public searchForm = this.formBuilder.group({
     searchInput: '',
   });
-  shopCartCount = 0;
-  selectedProductObs!: Subscription;
+  public shopCartCount = 0;
+  public selectedProductObs!: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,

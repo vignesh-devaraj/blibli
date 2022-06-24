@@ -13,11 +13,12 @@ import {
   styleUrls: ['./footer.component.less'],
 })
 export class FooterComponent implements OnChanges {
+
   @Input() pagingData!: IPaging | any;
   @Output() pageNoEmitter: EventEmitter<any> = new EventEmitter();
-  footerPageArray: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  currentPage = 1;
-  totalPage!: number;
+  public footerPageArray: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  public currentPage = 1;
+  public totalPage!: number;
 
   constructor() {}
 

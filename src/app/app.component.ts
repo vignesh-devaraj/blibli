@@ -13,14 +13,14 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./app.component.less'],
 })
 export class AppComponent {
+
   @ViewChild('modalBtn') modalButton!: ElementRef<HTMLButtonElement>;
-  productDetails!: IProductDetails;
-  clonedProductDetails!: IProductDetails;
-  searchQuery!: ISearchQuery;
-  start = 0;
-  isLoading = false;
-  isInitialLoad = true;
-  cartProducts: IProducts[] = [];
+  public productDetails!: IProductDetails;
+  public searchQuery!: ISearchQuery;
+  public start = 0;
+  public isLoading = false;
+  public isInitialLoad = true;
+  public cartProducts: IProducts[] = [];
 
   constructor(private productService: ProductService) {}
 

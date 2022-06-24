@@ -14,10 +14,10 @@ const ITEM_PER_PAGE = 24;
   providedIn: 'root',
 })
 export class ProductService {
-  cartProducts: IProducts[] = [];
 
+  public cartProducts: IProducts[] = [];
   private selectedProducts = new Subject<number>();
-  selectedProductObs = this.selectedProducts.asObservable();
+  public selectedProductObs = this.selectedProducts.asObservable();
 
   constructor(private http: HttpClient) {}
 
