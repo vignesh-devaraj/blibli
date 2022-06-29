@@ -8,7 +8,7 @@ import { ProductListComponent } from './product-list.component';
 describe('ProductListComponent', () => {
   let component: ProductListComponent;
   let fixture: ComponentFixture<ProductListComponent>;
-  let mockData: IProductDetails;
+  let mockData: IProductDetails = JSON.parse(JSON.stringify(ProductMockUpData.ProductResponse));;
   const productServiceStub = {
     addProductToCart(product: IProducts) {
     }
@@ -24,7 +24,6 @@ describe('ProductListComponent', () => {
 
     fixture = TestBed.createComponent(ProductListComponent);
     component = fixture.componentInstance;
-    mockData = ProductMockUpData.ProductResponse;
     fixture.detectChanges();
   });
 

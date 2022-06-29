@@ -18,15 +18,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
-  let mockData: IProductDetails = ProductMockUpData.ProductResponse;
+  let mockData: IProductDetails = JSON.parse(JSON.stringify(ProductMockUpData.ProductResponse));
 
   const productServiceStub = {
     selectedProductObs: of(1),
+    triggerScrollEventObs: of(true),
     cartProducts: [mockData.data.products[0]],
     searchProducts(searchQuery: ISearchQuery) {
       return of(mockData);
     },
     removeProductFromCart(index: number) {},
+    triggerScroll(){}
   };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -47,7 +49,6 @@ describe('AppComponent', () => {
         TranslateService,
       ],
     }).compileComponents();
-    mockData = ProductMockUpData.ProductResponse;
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
     component.productDetails = mockData;

@@ -6,7 +6,7 @@ import { FooterComponent } from './footer.component';
 describe('FooterComponent', () => {
   let component: FooterComponent;
   let fixture: ComponentFixture<FooterComponent>;
-  let mockData: IProductDetails;
+  let mockData: IProductDetails = JSON.parse(JSON.stringify(ProductMockUpData.ProductResponse));;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [FooterComponent],
@@ -14,7 +14,6 @@ describe('FooterComponent', () => {
 
     fixture = TestBed.createComponent(FooterComponent);
     component = fixture.componentInstance;
-    mockData = ProductMockUpData.ProductResponse;
     component.pagingData = mockData.data.paging;
     fixture.detectChanges();
   });

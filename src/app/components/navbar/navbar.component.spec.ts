@@ -12,7 +12,7 @@ import { of} from 'rxjs';
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
-  let mockData: IProductDetails;
+  let mockData: IProductDetails = JSON.parse(JSON.stringify(ProductMockUpData.ProductResponse));;
 
   const productServiceStub = {
     selectedProductObs: of(1),
@@ -28,7 +28,6 @@ describe('NavbarComponent', () => {
     }).compileComponents();
     fixture = TestBed.createComponent(NavbarComponent);
     component = fixture.componentInstance;
-    mockData = ProductMockUpData.ProductResponse;
     fixture.detectChanges();
   });
 

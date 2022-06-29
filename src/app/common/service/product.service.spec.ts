@@ -6,7 +6,7 @@ import { ProductService } from './product.service';
 
 describe('ProductService', () => {
   let service: ProductService;
-  let mockData: IProductDetails = ProductMockUpData.ProductResponse;
+  let mockData: IProductDetails = JSON.parse(JSON.stringify(ProductMockUpData.ProductResponse));
 
   beforeEach(() => {
     TestBed.configureTestingModule({
