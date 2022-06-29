@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { ProductService } from './common/service/product.service';
 import {
   IProductDetails,
@@ -11,9 +12,11 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less'],
 })
-export class AppComponent {
-
+export class AppComponent implements OnInit {
   @ViewChild('modalBtn') modalButton!: ElementRef<HTMLButtonElement>;
+  @ViewChild('productList', { static: false })
+  public productClass!: ElementRef<HTMLElement>;
+  public scrollSubscriber!: Subscription;
   public productDetails!: IProductDetails;
   public searchQuery!: ISearchQuery;
   public start = 0;
@@ -22,6 +25,17 @@ export class AppComponent {
   public cartProducts: IProducts[] = [];
 
   constructor(private productService: ProductService) {}
+
+  ngOnInit(): void {
+    let timer: any;
+    this.scrollSubscriber = this.productService.triggerScrollEventObs.subscribe(
+      {
+        next: () => {
+          this.loadMoreProducts();
+        },
+      }
+    );
+  }
 
   searchProducts(searchForm: any): void {
     this.isInitialLoad = false;
@@ -36,6 +50,10 @@ export class AppComponent {
 
   getProductDetails(): void {
     this.isLoading = true;
+    if(this.productDetails) {
+      this.productDetails.data.products = [];
+      this.productDetails.status="Loading";
+    }
     this.productService.searchProducts(this.searchQuery).subscribe({
       next: (response: IProductDetails) => {
         this.isLoading = false;
@@ -63,5 +81,31 @@ export class AppComponent {
 
   deleteProduct(index: number): void {
     this.productService.removeProductFromCart(index);
+  }
+
+  loadMoreProducts(): void {
+    let scrollHeight = +this.productClass.nativeElement.scrollHeight - 2;
+    let scrolledHeight =
+      this.productClass.nativeElement.scrollTop +
+      this.productClass.nativeElement.clientHeight;
+    if (scrolledHeight >= scrollHeight * 0.7) {
+      if (++this.start <= 24) {
+        this.isLoading = true;
+        this.searchQuery.start = this.start;
+        this.productService.searchProducts(this.searchQuery).subscribe({
+          next: (response: IProductDetails) => {
+            this.isLoading = false;
+            this.productDetails.data.products = [
+              ...this.productDetails.data.products,
+              ...response.data.products,
+            ];
+          },
+          error: (err) => {
+            this.isLoading = false;
+            this.productDetails = err;
+          },
+        });
+      }
+    }
   }
 }

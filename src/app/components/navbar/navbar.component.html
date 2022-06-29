@@ -1,6 +1,9 @@
 <section class="navbar__header">
+  <section>
+    <img class="search__logo" src="https://www.static-src.com/frontend/static/img/logo-blibli-white.f8255fc.svg"
+      alt="BliBli Logo">
+  </section>
   <section class="header__search">
-    <div class="icon-arrow"></div>
     <form class="search" [formGroup]="searchForm" (ngSubmit)="searchData()">
       <div class="icon-search" id="searchIcon" (click)="searchData()"></div>
       <input type="text" class="search__input" formControlName="searchInput">
@@ -9,9 +12,9 @@
   </section>
   <section class="header__icons">
     <div class="icons__shopping" (click)="openModal()">
-      <div class="icon-shopping"></div>
+      <img class="shopping__cart" src="../../../assets/images/icons/shopping-cart.png"
+        alt="Shopping Cart"/>
       <div class="shop__count">{{shopCartCount}}</div>
     </div>
-    <div class="icon-home"></div>
   </section>
 </section>

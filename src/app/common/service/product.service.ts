@@ -18,6 +18,8 @@ export class ProductService {
   public cartProducts: IProducts[] = [];
   private selectedProducts = new Subject<number>();
   public selectedProductObs = this.selectedProducts.asObservable();
+  private triggerScrollEvent = new Subject<boolean>();
+  public triggerScrollEventObs = this.triggerScrollEvent.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -35,5 +37,9 @@ export class ProductService {
   removeProductFromCart(index: number): void {
     this.cartProducts.splice(index, 1);
     this.selectedProducts.next(this.cartProducts.length);
+  }
+
+  triggerScroll(): void {
+    this.triggerScrollEvent.next(true);
   }
 }

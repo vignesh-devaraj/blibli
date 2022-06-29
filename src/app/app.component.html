@@ -12,22 +12,22 @@
   <main class="search__text" *ngIf="isInitialLoad">
     <h2 *ngIf="isInitialLoad && !isLoading">Search something to get products</h2>
   </main>
-  <main class="search__text" *ngIf="isLoading">
-    <div class="loader" *ngIf="isLoading"></div>
-  </main>
-  <main class="search__text" *ngIf="productDetails?.status !== 'OK' && !isInitialLoad">
-    <h2>No products available</h2>
-  </main>
-  <main *ngIf="productDetails?.status === 'OK' && !isLoading">
-    <app-product-list *ngIf="productDetails" [productDetails]="productDetails">
+  <main *ngIf="productDetails?.status === 'OK'" appScroll #productList>
+    <app-product-list [productDetails]="productDetails">
     </app-product-list>
   </main>
-  <footer>
+  <div class="search__loader" *ngIf="isLoading">
+    <div class="loader"></div>
+  </div>
+  <main class="search__text" *ngIf="productDetails?.status !== 'OK' && !isInitialLoad && !isLoading">
+    <h2>No products available</h2>
+  </main>
+  <!-- <footer>
     <app-footer
       [pagingData]="productDetails?.data?.paging"
       (pageNoEmitter)="navigateToPage($event)"
     ></app-footer>
-  </footer>
+  </footer> -->
 </div>
 
 <button #modalBtn type="button" [hidden]="true" class="btn btn-primary"

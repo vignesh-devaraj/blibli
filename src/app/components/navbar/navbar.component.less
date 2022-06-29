@@ -4,6 +4,7 @@
   .flexItem();
   padding: 10px;
   align-items: center;
+  background-color: @primary-color;
 
   .header__search,
   .header__icons {
@@ -11,8 +12,16 @@
     width: 100%;
   }
 
+  .search__logo {
+    width: 15vw;
+    height: 5vh;
+  }
+
   .icons__shopping {
     display: flex;
+    .shopping__cart {
+      cursor: pointer;
+    }
   }
 
   .shop__count {
@@ -35,8 +44,8 @@
     border: 2px solid @input-bg;
     border-radius: 10px;
     &__input {
-      width: 220px;
-      height: 24px;
+      width: 40vh;
+      height: 4vh;
       padding-left: 10px;
       border: none;
       background-color: @input-bg;
@@ -47,20 +56,22 @@
 
 @media screen and (max-width: 500px) {
   .navbar__header {
-    flex-direction: column;
     row-gap: 10px;
     .header__search,
     .header__icons {
       gap: 10px;
     }
     .icon {
-      width: 20px;
-      height: 20px;
+      width: 2vh;
+      height: 2vh;
     }
     .search {
-      flex-wrap: wrap;
+      justify-content: center;
       .search__input {
-        width: 50%;
+        width: 40vw;
+      }
+      &__logo {
+        display: none;
       }
     }
   }

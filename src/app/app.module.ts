@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { FooterComponent } from './components/footer/footer.component';
+import { ScrollDirective } from './common/directives/scroll.directive';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -19,6 +20,7 @@ export function createTranslateLoader(http: HttpClient) {
     NavbarComponent,
     ProductListComponent,
     FooterComponent,
+    ScrollDirective,
   ],
   imports: [
     BrowserModule,
